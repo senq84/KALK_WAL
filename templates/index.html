@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator walut</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <center>
+    <br><br>
+    <P>KALKULARTOR WALUT 2022</P><br>
+    <p>kursy z dnia: tego i owego KALK_WAL </p><br>
+    <form>
+    <div class="container">
+
+        <form action="/" method="POST" id="myform"></form>
+        <div class="row">
+            <label for="waluty"><b>wybierz walutę:</b></label> 
+            <select required name="from_c" id="from_c">
+                 
+                {% if currency %}
+                <option value="{{code}}" selected>{{currency}}</option>
+                {% endif %}
+                                     
+                <option value="USD">dolar ameryńkański</option>
+                <option value="AUD">dolar australijski</option>
+                <option value="CAD">dolar kanadyjski</option>
+                <option value="EUR">euro</option>
+                <option value="HUF">forint(Węgry)</option>
+                <option value="CHF">frank szwakcarski</option>
+                <option value="JPY">jen (Japonia)</option>
+                <option value="CZK">korona czeska</option>
+                <option value="DKK">korona duńska</option>
+                <option value="NOK">korona norweska</option>
+                <option value="SEK">korona szwedzka</option>
+                <option value="XDR">SDR (MWF)</option>
+            </select>
+        </div>
+        <br><br>
+        <div>
+        <label for="amount"><b>kwota waluty</b></label>
+        <input type="number" name="amount" min="0" value="{{amount}}" required="required">
+         
+        </div>
+        <br><br>
+        
+        <button type="submit" formaction="{{result}}" method="get">Przelicz</button>
+        
+
+        <br><br><br>
+        <label for="wynik"><b>wartość w zł</b></label> {{result}}
+        <output name="xx"></output>  
+        <input type="number" value="{{result}}" readonly method="get"> 
+        </div>
+    </form>
+    <br>
+
+
+<! -- {% if time %} 
+<! -- <h4 style="color: red; text-align: center;"> <! -- Last Update on {{time}}</h4> 
+<! -- {% endif %} 
+
+    </center>
+</body>
+</html>
