@@ -1,7 +1,5 @@
-from sqlite3 import Row
 from flask import Flask, render_template, request
 import requests
-import json
 import csv
 
 app = Flask(__name__)
@@ -17,42 +15,38 @@ def get_rates():
         writer.writeheader()
         writer.writerows(data)
 get_rates()
-amount = 0
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    
     if request.method == 'POST':
         try:
             amount = request.form['amount']
             amount = float(amount)
             from_c = request.form['from_c']
             
-            response = requests.get("http://api.nbp.pl/api/exchangerates/tables/C?format=json")
+            response = requests.get("http://api.nbp.pl/api/exchangerates/tables/C?format=json") # tutaj można w nawiasie ew. zmieniać żeby pobierać z poliku .csv  
             data = response.json()
-            data = data[0]['rates']
+            rates = data[0]['rates']
+            tradingDay = data[0]['tradingDate']
+            
+            result = 0 
 
-            row = requests.get(data, Row)
+            for currency in rates:
+                if currency['code'] == from_c:
+                    result = currency['bid'] * amount
+                    bid = currency['bid']
+                    from_c = currency['code']
 
-            currency = row['rates']['currency']
-            code = row['rates']['code']
-            rate = row['rates']['bid'] 
-            rate = float(rate)
-        
-            result = rate * amount
-
+            #zobaczyć co jest wykorzystane w szablonie 
             return render_template('index.html', amount=amount, response=response, 
-                                   currency=currency, from_c=from_c, code=code, 
-                                   rate=rate, result=round(result, 2))
+                                   currency=currency, from_c=from_c, tradingDay=tradingDay, 
+                                   bid=bid, result=round(result, 2))
         
-        except Exception:
-            return '<h1>Bad Request :{}</h1>'
+        except Exception as e:
+            return '<h1>Bad Request : {}</h1>'.format(e)
+  
     else:
         return render_template('index.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-#powinna być funkcja - żeby działało w momencie obliczeń, a nie uruchomienia pojedyńczego, 

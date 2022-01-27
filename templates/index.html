@@ -8,21 +8,19 @@
 <body>
     <center>
     <br><br>
-    <P>KALKULARTOR WALUT 2022</P><br>
-    <p>kursy z dnia: tego i owego KALK_WAL </p><br>
-    <form>
+    <P><b>KALKULARTOR WALUT 2022 - KALK_WAL</b></P>
+    <br>
+   
     <div class="container">
 
-        <form action="/" method="POST" id="myform"></form>
+        <form action="/" method="POST" id="myform">
         <div class="row">
             <label for="waluty"><b>wybierz walutę:</b></label> 
-            <select required name="from_c" id="from_c">
-                 
-                {% if currency %}
+            <select required name="from_c" id="from_c">     
+               
                 <option value="{{code}}" selected>{{currency}}</option>
-                {% endif %}
-                                     
-                <option value="USD">dolar ameryńkański</option>
+         
+                <option value="USD">dolar amerykański</option>
                 <option value="AUD">dolar australijski</option>
                 <option value="CAD">dolar kanadyjski</option>
                 <option value="EUR">euro</option>
@@ -38,28 +36,23 @@
         </div>
         <br><br>
         <div>
-        <label for="amount"><b>kwota waluty</b></label>
-        <input type="number" name="amount" min="0" value="{{amount}}" required="required">
-         
+            <label for="amount"><b>kwota waluty</b></label>
+            <input type="number" name="amount" min="0" value="{{amount}}" required="required">
         </div>
         <br><br>
-        
         <button type="submit" formaction="{{result}}" method="get">Przelicz</button>
-        
-
         <br><br><br>
-        <label for="wynik"><b>wartość w zł</b></label> {{result}}
-        <output name="xx"></output>  
+        <label for="wynik"><b>wartość w zł</b></label> 
         <input type="number" value="{{result}}" readonly method="get"> 
+        <br><br>
+        <p><a>kurs obliczeń: {{bid}} </p>
+        <p>kurs z dnia: {{tradingDay}} </p><br>
+        <br><br>
+        <input type="submit" formaction="{{home}}" value = "Nowe obliczenie"/>
+        <br><br><br>
         </div>
     </form>
     <br>
-
-
-<! -- {% if time %} 
-<! -- <h4 style="color: red; text-align: center;"> <! -- Last Update on {{time}}</h4> 
-<! -- {% endif %} 
-
     </center>
 </body>
 </html>
