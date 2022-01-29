@@ -19,16 +19,20 @@ get_rates()
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        try:
-            amount = request.form['amount']
-            amount = float(amount)
-            from_c = request.form['from_c']
-            
+        try:          
             response = requests.get("http://api.nbp.pl/api/exchangerates/tables/C?format=json") # tutaj można w nawiasie ew. zmieniać żeby pobierać z poliku .csv  
             data = response.json()
+
             rates = data[0]['rates']
             tradingDay = data[0]['tradingDate']
             
+            currency_name = rates[0]['currency']
+            code = rates[0]['code']
+
+            amount = request.form['amount']
+            amount = float(amount)
+            from_c = request.form['from_c']
+
             result = 0 
 
             for currency in rates:
@@ -38,8 +42,8 @@ def home():
                     from_c = currency['code']
 
             #zobaczyć co jest wykorzystane w szablonie 
-            return render_template('index.html', amount=amount, response=response, 
-                                   currency=currency, from_c=from_c, tradingDay=tradingDay, 
+            return render_template('index.html', amount=amount, currency_name=currency_name, response=response, 
+                                   currency=currency, from_c=from_c, tradingDay=tradingDay, code=code, rates=rates,
                                    bid=bid, result=round(result, 2))
         
         except Exception as e:

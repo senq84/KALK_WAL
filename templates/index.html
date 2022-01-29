@@ -16,23 +16,30 @@
         <form action="/" method="POST" id="myform">
         <div class="row">
             <label for="waluty"><b>wybierz walutę:</b></label> 
-            <select required name="from_c" id="from_c">     
-               
-                <option value="{{code}}" selected>{{currency}}</option>
-         
-                <option value="USD">dolar amerykański</option>
-                <option value="AUD">dolar australijski</option>
-                <option value="CAD">dolar kanadyjski</option>
-                <option value="EUR">euro</option>
-                <option value="HUF">forint(Węgry)</option>
-                <option value="CHF">frank szwakcarski</option>
-                <option value="JPY">jen (Japonia)</option>
-                <option value="CZK">korona czeska</option>
-                <option value="DKK">korona duńska</option>
-                <option value="NOK">korona norweska</option>
-                <option value="SEK">korona szwedzka</option>
-                <option value="XDR">SDR (MWF)</option>
+           
+            <select required name="from_c" id="from_c">
+                
+                {% for currency_name in rates %}
+                <option value="{{code}}">{{currency_name}}</option>
+                {% endfor %}
+
+                <!--
+               <option value="USD">dolar amerykański</option>
+               <option value="AUD">dolar australijski</option>
+               <option value="CAD">dolar kanadyjski</option>
+               <option value="EUR">euro</option>
+               <option value="HUF">forint(Węgry)</option>
+               <option value="CHF">frank szwakcarski</option>
+               <option value="JPY">jen (Japonia)</option>
+               <option value="CZK">korona czeska</option>
+               <option value="DKK">korona duńska</option>
+               <option value="NOK">korona norweska</option>
+               <option value="SEK">korona szwedzka</option>
+               <option value="XDR">SDR (MWF)</option> 
+                -->
+
             </select>
+           
         </div>
         <br><br>
         <div>
