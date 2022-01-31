@@ -17,10 +17,19 @@ def get_rates():
 get_rates()
 
 @app.route('/', methods=['GET', 'POST'])
+
 def home():
+    if request.method == 'GET':
+        response = requests.get("http://api.nbp.pl/api/exchangerates/tables/C?format=json") 
+        dane = response.json()
+        stawki = dane[0]['rates']
+        kody_walut = [d['code'] for d in stawki]
+        print(kody_walut)
+        #return render_template('index.html', data=kody_walut)
+
     if request.method == 'POST':
         try:          
-            response = requests.get("http://api.nbp.pl/api/exchangerates/tables/C?format=json") # tutaj można w nawiasie ew. zmieniać żeby pobierać z poliku .csv  
+            response = requests.get("http://api.nbp.pl/api/exchangerates/tables/C?format=json")  
             data = response.json()
 
             rates = data[0]['rates']
@@ -28,6 +37,8 @@ def home():
             
             currency_name = rates[0]['currency']
             code = rates[0]['code']
+
+            currency = rates[0]['currency']
 
             amount = request.form['amount']
             amount = float(amount)

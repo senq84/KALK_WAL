@@ -19,8 +19,8 @@
            
             <select required name="from_c" id="from_c">
                 
-                {% for currency_name in rates %}
-                <option value="{{code}}">{{currency_name}}</option>
+                {% for x in kody_walut %}
+                <option value="{{x}}">{{x}}</option>
                 {% endfor %}
 
                 <!--
