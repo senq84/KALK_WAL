@@ -13,30 +13,17 @@
    
     <div class="container">
 
-        <form action="/" method="POST" id="myform">
+        <form action="/" method="post" id="myform">
         <div class="row">
             <label for="waluty"><b>wybierz walutę:</b></label> 
            
+                   
             <select required name="from_c" id="from_c">
-                
-                {% for x in kody_walut %}
-                <option value="{{x}}">{{x}}</option>
-                {% endfor %}
 
-                <!--
-               <option value="USD">dolar amerykański</option>
-               <option value="AUD">dolar australijski</option>
-               <option value="CAD">dolar kanadyjski</option>
-               <option value="EUR">euro</option>
-               <option value="HUF">forint(Węgry)</option>
-               <option value="CHF">frank szwakcarski</option>
-               <option value="JPY">jen (Japonia)</option>
-               <option value="CZK">korona czeska</option>
-               <option value="DKK">korona duńska</option>
-               <option value="NOK">korona norweska</option>
-               <option value="SEK">korona szwedzka</option>
-               <option value="XDR">SDR (MWF)</option> 
-                -->
+
+                {% for d in data %}
+                <option value="{{d}}">{{d}}</option>
+                {% endfor %}
 
             </select>
            
@@ -55,7 +42,7 @@
         <p><a>kurs obliczeń: {{bid}} </p>
         <p>kurs z dnia: {{tradingDay}} </p><br>
         <br><br>
-        <input type="submit" formaction="{{home}}" value = "Nowe obliczenie"/>
+        <a href="/"> nowe obliczenie </a>      
         <br><br><br>
         </div>
     </form>
